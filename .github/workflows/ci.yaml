@@ -11,14 +11,21 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
+
       - name: setup go 1.22
         uses: actions/setup-go@v4
         with:
           go-version: 1.22
       - name: build
-        run: go build -o product-catalog-service src/product-catalog/main.go
+        run: |
+         cd src/product-catalog
+         go mod download
+         go build -o product-catalog-service main.go
+
       - name: run tests
-        run: go test ./src/product-catalog/... 
+        run: |
+          cd src/product-catalog
+          go test  ./... 
   code-quality:
     runs-on: ubuntu-latest
 
@@ -68,7 +75,7 @@ jobs:
           git add kubernates/productcatalog/deploy.yaml 
           git commit -m "[ci]update image tag to ${{ secrets.DOCKER_USERNAME }}/product-catalog:${github.run_id}"
           git push
-          
+
 
 
 
