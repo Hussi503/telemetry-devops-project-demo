@@ -5,7 +5,7 @@ RUN go mod download
 RUN go build -o product-catlog .
 FROM golang:1.22 AS release
 WORKDIR /usr/src/app
-COPY products ./products
+COPY ./products/ ./products/
 COPY --from=builder /usr/src/app/product-catlog .
 ENV PRODUCT_CATALOG_PORT=8088
 EXPOSE ${PRODUCT_CATALOG_PORT}
