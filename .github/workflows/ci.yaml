@@ -71,9 +71,9 @@ jobs:
           # sed -i 's|image: .*|image: '"${{ secrets.DOCKER_USERNAME }}/product-catalog:${github.run_id}"'|g' kubernetes/productcatalog/deploy.yaml
       - name: commit and push changes
         run: |
-          git config --global user.name "hussainshaik111994@gma"
+          git config --global user.name "hussainshaik111994@gmail.com"
           git config --global user.email "hussainshaik111994@gmail.com"
-          git add kubernates/productcatalog/deploy.yaml 
+          git add kubernetes/productcatalog/deploy.yaml 
           git commit -m "[ci]update image tag to ${{ secrets.DOCKER_USERNAME }}/product-catalog:${github.run_id}"
           git push
 
